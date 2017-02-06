@@ -4,4 +4,4 @@
 
 ## Содержание
 
-#### [1: Введение в React](/01-introduction-to-react)
+#### [1: Введение в React](./01-introduction-to-react)

@@ -2,4 +2,4 @@
 
 ## Содержание
 
-#### [1: React Essential](/react-essential-course)
+#### [1: Курс React Essential](./react-essential-course)
