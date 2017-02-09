@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Contacts</title>
+
+	<link rel="stylesheet" href="style.css">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+</head>
+<body>
+	<div class="layout">
+		<div id="content"></div>
+	</div>
+
+	<script type="text/babel">
+
+		var contacts = [{
+			_id: 1,
+			name: 'John S',
+			phone: '+250900000001',
+			color: '#ddd',
+			email: 'john@example.com',
+			address: 'john\'s address'
+		}, {
+			_id: 2,
+			name: 'Jennifer A',
+			phone: '+250900000001',
+			color: '#aaa',
+			email: 'jennifer@example.com',
+			address: 'jennifer\'s address'
+		}, {
+			_id: 3,
+			name: 'Bruce W',
+			phone: '+250900000001',
+			color: '#c3c3c3',
+			email: 'bruce@example.com',
+			address: 'bruce\'s address'
+		}, {
+			_id: 4,
+			name: 'Luke K',
+			phone: '250900000002',
+			color: '#eee',
+			email: 'luke@example.com',
+			address: 'luke\'s address'
+		}];
+
+		var createAvatar = function(contact) {
+			var words = contact.name.split(' ');
+
+			return {
+				text: words[0][0] + words[1][0],
+				color: contact.color
+			};
+		};
+
+		var Contact = React.createClass({
+			getInitialState: function() {
+				return {isOpen: false};
+			},
+
+			render: function() {
+				var avatarStyle = {
+					backgroundColor: this.props.avatar.color
+				};
+
+				var additionalInfo;
+				if (this.state.isOpen) {
+					additionalInfo =
+						<div className="contact__additional-info">
+							<div className="contact__additional-info-item">{this.props.email}</div>
+							<div className="contact__additional-info-item">{this.props.address}</div>
+						</div>
+				}
+
+				return (
+					<div className={`contact ${this.state.isOpen ? 'contact_open' : ''}`} onClick={this.onClick}>
+						<div className="contact__avatar" style={avatarStyle}>{this.props.avatar.text}</div>
+						<div className="contact__info">
+							<div className="contact__name">{this.props.name}</div>
+							<div className="contact__phone">{this.props.phone}</div>
+							{additionalInfo}
+						</div>
+					</div>
+				);
+			},
+
+			onClick: function() {
+				this.setState({isOpen: !this.state.isOpen});
+			}
+		});
+
+		var ContactsSearch = React.createClass({
+			getInitialState: function() {
+				return {contacts};
+			},
+
+			render: function() {
+				return (
+					<div className="contacts-search">
+						<input className="contacts-search__input" placeholder="Search..." onChange={this.onInputChange} />
+
+						<div className="contacts-search__list">
+							{
+								this.state.contacts.map(function(contact) {
+									return <Contact
+										key={contact._id}
+										name={contact.name}
+										phone={contact.phone}
+										avatar={createAvatar(contact)}
+										email={contact.email}
+										address={contact.address}
+									/>
+								})
+							}
+						</div>
+					</div>
+				);
+			},
+
+			onInputChange: function(event) {
+				var value = event.target.value.toLowerCase();
+
+				var filteredContacts = contacts.filter(function(contact) {
+					return contact.name.toLowerCase().includes(value);
+				});
+
+				this.setState({contacts: filteredContacts});
+			}
+		});
+
+		ReactDOM.render(
+			<ContactsSearch />,
+			document.getElementById('content')
+		);
+
+	</script>
+</body>
+</html>
