@@ -21,22 +21,30 @@
 			_id: 1,
 			name: 'John S',
 			phone: '+250900000001',
-			color: '#ddd'
+			color: '#ddd',
+			email: 'john@example.com',
+			address: 'john\'s address'
 		}, {
 			_id: 2,
 			name: 'Jennifer A',
 			phone: '+250900000001',
-			color: '#aaa'
+			color: '#aaa',
+			email: 'jennifer@example.com',
+			address: 'jennifer\'s address'
 		}, {
 			_id: 3,
 			name: 'Bruce W',
 			phone: '+250900000001',
-			color: '#c3c3c3'
+			color: '#c3c3c3',
+			email: 'bruce@example.com',
+			address: 'bruce\'s address'
 		}, {
 			_id: 4,
 			name: 'Luke K',
 			phone: '250900000002',
-			color: '#eee'
+			color: '#eee',
+			email: 'luke@example.com',
+			address: 'luke\'s address'
 		}];
 
 		var createAvatar = function(contact) {
@@ -49,20 +57,38 @@
 		};
 
 		var Contact = React.createClass({
+			getInitialState: function() {
+				return {isOpen: false};
+			},
+
 			render: function() {
 				var avatarStyle = {
 					backgroundColor: this.props.avatar.color
 				};
 
+				var additionalInfo;
+				if (this.state.isOpen) {
+					additionalInfo =
+						<div className="contact__additional-info">
+							<div className="contact__additional-info-item">{this.props.email}</div>
+							<div className="contact__additional-info-item">{this.props.address}</div>
+						</div>
+				}
+
 				return (
-					<div className="contact">
+					<div className={`contact ${this.state.isOpen ? 'contact_open' : ''}`} onClick={this.onClick}>
 						<div className="contact__avatar" style={avatarStyle}>{this.props.avatar.text}</div>
 						<div className="contact__info">
 							<div className="contact__name">{this.props.name}</div>
 							<div className="contact__phone">{this.props.phone}</div>
+							{additionalInfo}
 						</div>
 					</div>
 				);
+			},
+
+			onClick: function() {
+				this.setState({isOpen: !this.state.isOpen});
 			}
 		});
 
@@ -84,6 +110,8 @@
 										name={contact.name}
 										phone={contact.phone}
 										avatar={createAvatar(contact)}
+										email={contact.email}
+										address={contact.address}
 									/>
 								})
 							}
