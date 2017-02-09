@@ -1,0 +1,67 @@
+* {
+	box-sizing: border-box;
+}
+
+.layout {
+	width: 400px;
+	margin: 30px auto;
+}
+
+.contacts-search__input {
+	width: 100%;
+	padding: 10px 15px;
+
+	margin-bottom: 30px;
+
+	font-size: 16px;
+
+	outline: none;
+}
+
+.contact {
+	display: flex;
+	align-items: center;
+
+	width: 100%;
+	height: 90px;
+
+	margin-bottom: 20px;
+
+	background-color: #fdfdfd;
+
+	border: 1px solid #ccc;
+}
+
+.contact:hover {
+	box-shadow: 0 0 2px rgba(0,0,0,0.2);
+}
+
+.contact__avatar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 60px;
+	height: 60px;
+
+	margin: 0 30px;
+
+	font-size: 24px;
+
+	border: 1px solid #ccc;
+
+	border-radius: 50%;
+}
+
+.contact__info {
+	height: 60px;
+}
+
+.contact__name {
+	text-transform: capitalize;
+	margin-bottom: 10px;
+}
+
+.contact__phone {
+	color: #888;
+}
