@@ -13,6 +13,41 @@
 <body>
 	<div id="content"></div>
 
-	<script type="text/babel"></script>
+	<script type="text/babel">
+
+		var Contact = React.createClass({
+			render: function() {
+				return (
+					<div className="contact">
+						<img className="contact__avatar" src="{this.props.avatar}" />
+						<div className="contact__info">
+							<div className="contact__name">{this.props.name}</div>
+							<div className="contact__phone">{this.props.phone}</div>
+						</div>
+					</div>
+				);
+			}
+		});
+
+		var ContactsSearch = React.createClass({
+			render: function() {
+				return (
+					<div className="contacts-search">
+						<input className="contacts-search__input" />
+
+						<div className="contacts-search__list">
+							<Contact />
+						</div>
+					</div>
+				);
+			}
+		});
+
+		ReactDOM.render(
+			<ContactsSearch />,
+			document.getElementById('content')
+		);
+
+	</script>
 </body>
 </html>
